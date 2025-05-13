@@ -1,0 +1,17 @@
+[project]
+name = "mcp-poc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.38.13",
+    "fastapi>=0.115.12",
+    "fastmcp>=2.3.3",
+    "langchain>=0.3.25",
+    "langchain-community>=0.3.24",
+    "langchain-litellm>=0.2.1",
+    "langchain-mcp-adapters>=0.0.11",
+    "langgraph>=0.4.3",
+    "litellm>=1.69.0",
+]
