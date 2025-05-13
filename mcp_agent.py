@@ -17,7 +17,7 @@ class MCPAgent:
         self.agent = None
 
 
-    async def make_agent(self):
+    async def initialize(self):
         async with MultiServerMCPClient(
             {
                 "agent1": {
@@ -41,33 +41,6 @@ class MCPAgent:
             )        
             print("*** Agent created")
 
-
-
-    async def initialize(self):
-        print("*** Initializing")
-        self.client = MultiServerMCPClient(
-            {
-                "agent1": {
-                    "command": "python",
-                    "args": ["mcp_server.py"],
-                    "transport": "stdio",
-                }
-            }
-        )
-        tools = self.client.get_tools()
-
-        print("*** Found tools:")
-        print(tools)
-        print("*** LLM")
-        print(self.llm)
-
-        self.agent = create_react_agent(
-            model=self.llm,
-            tools=tools
-        )
-        print("*** Agent created")
-
-
     async def question(self, message):
         # test_response = await self.agent.ainvoke(
         #     {"messages": [{"role": "user", "content": message}]}
@@ -79,13 +52,3 @@ class MCPAgent:
 
         return test_response
 
-
-    async def XXquestion(self, message):
-        if self.client is None or self.agent is None:
-            await self.initialize()
-
-        test_response = await self.agent.ainvoke(
-            {"messages": [{"role": "user", "content": message}]}
-        )
-        last_message = test_response['messages'][-1]
-        return last_message

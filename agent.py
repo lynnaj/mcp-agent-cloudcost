@@ -15,7 +15,7 @@ agent = MCPAgent()
 # Background task to initialize the agent
 async def initialize_agent():
     # await agent.initialize()
-    await agent.make_agent()
+    await agent.initialize()
 
 # Startup event to initialize the agent
 @app.on_event("startup")
@@ -31,7 +31,7 @@ async def index():
 async def q(question):
     print(f"Asking: {question}")
     # question = "How much is (3 + 7) * 9?"
-    question = "Get foo value"
+    # question = "Get foo value"
     response = await agent.question(question)
     return response
 
