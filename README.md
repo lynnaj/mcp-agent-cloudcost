@@ -14,7 +14,7 @@ uv run litellm-bedrock-mcp-test.py
 ## How to run agent 
 - Run
 ```bash
-uv run agentp.py
+uv run agent.py
 ```
 - Go to http://localhost:7234/home
 - Enter question
