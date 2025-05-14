@@ -1,13 +1,10 @@
 from typing import Union
 import asyncio
-# from fastmcp import Client
 from fastapi import FastAPI
 from starlette.responses import FileResponse 
 from mcp_agent import MCPAgent
-from pathlib import Path  # Import Path from pathlib
 
 app = FastAPI()
-# client = Client("mcp_server.py")
 
 # Create a single instance of MCPAgent
 agent = MCPAgent()
@@ -34,7 +31,6 @@ async def q(question):
     # question = "Get foo value"
     response = await agent.question(question)
     return response
-
 
 @app.get("/items/{item_id}")
 async def read_item(item_id: int, q: Union[str, None] = None):
