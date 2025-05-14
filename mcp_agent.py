@@ -1,13 +1,8 @@
-# nova_agent.py
 from litellm import litellm, completion
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 import asyncio
-# from langchain_community.chat_models import ChatLiteLLM
 from langchain_litellm import ChatLiteLLM
-
-# import os
-# os.environ["LANGSMITH_TRACING"] = "true"
 
 class MCPAgent:
     def __init__(self):
@@ -16,9 +11,8 @@ class MCPAgent:
         self.client = None
         self.agent = None
 
-
     async def initialize(self):
-        async with MultiServerMCPClient(
+        self.client = MultiServerMCPClient(
             {
                 "agent1": {
                     "command": "python",
@@ -31,21 +25,25 @@ class MCPAgent:
                 #     "transport": "sse",
                 # }
             }
-        ) as client:
-            tools = client.get_tools()
-            print("*** Found tools:")
-            print(tools)
-            self.agent = create_react_agent(
-                model=self.llm,
-                tools=tools
-            )        
-            print("*** Agent created")
+        ) 
+        print(self.client)
+        await self.client.__aenter__()
+        print("*** Getting tools:")
+        tools = self.client.get_tools()
+        print("*** Found tools:")
+        print(tools)
+        self.agent = create_react_agent(
+            model=self.llm,
+            tools=tools
+        )        
+        print("*** Agent created")
+
+    async def cleanup(self):
+        if self.client:
+                await self.client.__aexit__(None, None, None)
+
 
     async def question(self, message):
-        # test_response = await self.agent.ainvoke(
-        #     {"messages": [{"role": "user", "content": message}]}
-        # )
-
         test_response = await self.agent.ainvoke(
             {"messages": [{"role": "user", "content": message}]}
         )

@@ -45,16 +45,6 @@ def multiply(a: int, b: int) -> int:
     return a * b
     
 
-# @mcp.resource("config://foo")
-# def get_foo() -> str:
-#     """
-#     Get value of foo
-
-#     Returns:
-#         str: Value of foo.
-#     """
-#     return "Foo-Res-VALUE"
-
 @mcp.tool()
 def get_foo_value() -> str:
     """

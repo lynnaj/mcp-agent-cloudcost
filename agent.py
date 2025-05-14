@@ -11,13 +11,17 @@ agent = MCPAgent()
 
 # Background task to initialize the agent
 async def initialize_agent():
-    # await agent.initialize()
     await agent.initialize()
 
 # Startup event to initialize the agent
 @app.on_event("startup")
 async def startup_event():
     await initialize_agent()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    await agent.cleanup()
+
 
 @app.get("/home")
 async def index():
