@@ -1,20 +1,16 @@
-
-
-## Setup for dev
+## How to setup
+- Install Python
+- Install UV
+- Clone this repo
+- Authenticate to AWS
+- Set AWS_RTEGION
+- Cd to the project folder, and run
+```bash
 uv init
-uv add fastmcp
-uv add fastapi
-uv add langchain_mcp_adapters
-uv add langgraph
-uv add langchain
-uv add litellm
-uv add boto3
-uv add langchain_community
-uv add langchain_litellm
+uv sync
+uv run litellm-bedrock-mcp-test.py
+```
 
 
-pip install -U langchain-openai
 
 
-## Run server
-uv run mcp-server.py 
