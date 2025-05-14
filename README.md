@@ -4,7 +4,8 @@
 - Clone this repo
 - Authenticate to AWS
 - Set AWS_RTEGION
-- Cd to the project folder, and run
+- Using AWS Console ensure that you have access to Bedrock model "amazon.nova-pro-v1:0"
+- cd to the project folder, and run
 ```bash
 uv init
 uv sync
