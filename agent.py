@@ -42,4 +42,4 @@ async def read_item(item_id: int, q: Union[str, None] = None):
  
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("agent:app", host="127.0.0.1", port=7234, log_level="info", reload=True)
+    uvicorn.run("agent:app", host="127.0.0.1", port=7236, log_level="info", reload=False)
