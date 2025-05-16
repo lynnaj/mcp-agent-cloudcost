@@ -46,14 +46,14 @@ def multiply(a: int, b: int) -> int:
     
 
 @mcp.tool()
-def get_foo_value() -> str:
+def get_my_value() -> str:
     """
-    Get value of foo
+    Get my value
 
     Returns:
-        str: Value of foo.
+        str: Value of MY, MY-VALUE.
     """
-    return "Foo-VALUE"
+    return "MY-VALUE"
 
 
 if __name__ == "__main__":
