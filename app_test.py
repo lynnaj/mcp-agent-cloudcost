@@ -1,75 +1,27 @@
-from fastmcp import FastMCP, Client
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 import os
 
-mcp = FastMCP("My MCP Server", dependencies=["pandas"])
-print("=== Server code running")
-
-@mcp.tool()
-def greet(name: str) -> str:
+def load_csv() -> pd.DataFrame:
     """
-    Greet a person by their name.
-
-    Args:
-        name (str): The name of the person to greet.
-
-    Returns:
-        str: A greeting message including the person's name.
-    """
-    return f"Hello, {name}!"
-
-@mcp.tool()
-def add(a: int, b: int) -> int:
-    """
-    Add two numbers.
-
-    Args:
-        a (int): The first number.
-        b (int): The second number.
-
-    Returns:
-        int: The sum of the two numbers.
-    """
-    return a + b
-
-@mcp.tool()
-def multiply(a: int, b: int) -> int:
-    """
-    Multiply two numbers.
-
-    Args:
-        a (int): The first number.
-        b (int): The second number.
-
-    Returns:
-        int: The product of the two numbers.
-    """
-    return a * b
+    Load a Azure Usage data file into a pandas DataFrame
     
-
-@mcp.tool()
-def get_foo_value() -> str:
-    """
-    Get value of foo
-
     Returns:
-        str: Value of foo.
-    """
-    return "Foo-VALUE"
-
-
-@mcp.tool()
-def summarize_azure_data() -> str:
-    """
-    Generate a summary of the Azure Usage data
-        
-    Returns:
-        str: summary of the Azure Usage data
+        pd.DataFrame: dataframe
     """
     df = pd.read_csv("data/AzureUsage.csv")
+    return df
+
+def summarize_data(df) -> str:
+    """
+    Generate a summary of the data
     
+    Args:
+        pd.DataFrame: dataframe
+    Returns:
+        str: summary of the data
+    """
     summary = f"Rows: {len(df)}\nColumns: {', '.join(df.columns)}\n\n"
     
     # Azure-specific summary
@@ -92,19 +44,17 @@ def summarize_azure_data() -> str:
     
     return summary
 
-
-@mcp.tool()
-def generate_chart(x_col: str, y_col: str, output_dir='reports/charts') -> str:
+def generate_chart(x_col:str, y_col:str, output_dir='reports/charts') -> str:
     """
     Generate a chart from the data
     
     Args:
-        x_col (str): The column to use for the x-axis, options are 'ServiceName', 'ServiceRegion', 'ServiceType'.
-        y_col (str): The column to use for the y-axis, options are 'Quanity', 'Cost'.
+        x_col (str): The column to use for the x-axis.
+        y_col (str): The column to use for the y-axis.
         output_dir (str): The directory to save the chart.
         
     Returns:
-        str: a string that tells the user the path and filename to the saved chart.
+        str: path and filename to the saved chart.
     """
     
     df = pd.read_csv("data/AzureUsage.csv")
@@ -138,6 +88,9 @@ def generate_chart(x_col: str, y_col: str, output_dir='reports/charts') -> str:
     path_str = f"Chart saved at: {path}"
     return path_str
 
-if __name__ == "__main__":
-    mcp.run(transport="stdio")
-    # mcp.run(transport="sse")
+df_table = load_csv()
+result = summarize_data(df_table)
+print(result)
+
+path_output = generate_chart('ServiceName', 'Cost')
+print(path_output) 

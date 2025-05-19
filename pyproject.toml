@@ -14,4 +14,6 @@ dependencies = [
     "langchain-mcp-adapters>=0.0.11",
     "langgraph>=0.4.3",
     "litellm>=1.69.0",
+    "pandas>=2.2.3",
+    "matplotlib>=3.10.1",
 ]

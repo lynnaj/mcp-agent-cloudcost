@@ -26,7 +26,7 @@ class MCPAgent:
                 # }
             }
         ) 
-        print(self.client)
+        # print(self.client)
         await self.client.__aenter__()
         print("*** Getting tools:")
         tools = self.client.get_tools()
